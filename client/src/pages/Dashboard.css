@@ -1,0 +1,82 @@
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f8f9fa; /* Light background */
+  font-family: Arial, sans-serif;
+}
+
+/* Sidebar */
+.dashboard-sidebar {
+  width: 250px;
+  background-color: #343a40; /* Dark gray */
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 10px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-sidebar h2 {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  color: #ffc107; /* Gold color */
+}
+
+.dashboard-sidebar button {
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: white;
+  background-color: #495057; /* Lighter gray */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.dashboard-sidebar button:hover {
+  background-color: #ffc107; /* Gold hover effect */
+  color: #343a40; /* Dark text for hover */
+}
+
+.dashboard-sidebar button:active {
+  background-color: #e0a800; /* Slightly darker gold */
+}
+
+/* Main Content */
+.dashboard-main {
+  flex: 1; /* Take up remaining space */
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.dashboard-main > div {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .dashboard-container {
+    flex-direction: column;
+  }
+
+  .dashboard-sidebar {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 10px;
+  }
+
+  .dashboard-sidebar h2 {
+    display: none; /* Hide the menu title on smaller screens */
+  }
+
+  .dashboard-main {
+    padding: 10px;
+  }
+}

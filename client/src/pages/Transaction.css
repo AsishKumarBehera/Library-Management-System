@@ -1,0 +1,69 @@
+.transaction-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh; /* Make sure the container takes the full viewport height */
+  background-color: #f9f9f9;
+  padding: 20px;
+}
+
+.transaction-form {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+}
+
+.transaction-form div {
+  margin-bottom: 15px;
+}
+
+.transaction-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.transaction-form select,
+.transaction-form button {
+  width: 95%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.transaction-form button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.transaction-form button:hover {
+  background-color: #0056b3;
+}
+
+.transaction-list {
+  margin-top: 20px;
+  max-width: 600px;
+  width: 100%;
+}
+
+.transaction-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.transaction-list li {
+  background-color: #ffffff;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
