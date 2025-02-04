@@ -7,9 +7,11 @@ const cookieParser = require('cookie-parser')
 const maintenanceRoutes = require("./routes/maintenance")
 const reportRoutes = require("./routes/reports")
 const transactionRoutes = require("./routes/transactions")
-const profileRoutes = require('./routes/profileRoutes');
 const bookRoutes = require('./routes/books')
 const requestBookRoute = require("./routes/requestBook");
+const membershipRoutes = require("./routes/membership");
+const bookRoutes = require("./routes/bookRoutes");
+const issueRoutes = require("./routes/issueRoutes");
 
 const app = express();
 
@@ -31,10 +33,11 @@ app.use('/', require('./routes/authRoutes'))
 app.use("/api/maintenance", maintenanceRoutes)
 app.use('/api/reports', reportRoutes);
 app.use("/api/transactions", transactionRoutes);
-app.use('/api/user', profileRoutes);
-app.use(bookRoutes);
+app.use('/api/books',bookRoutes);
 app.use("/api", requestBookRoute);
+app.use("/api/membership", membershipRoutes);
+app.use('/api/issues', issueRoute)
 
 
-const port = 3000;
+const port = 2000;
 app.listen(port, () => console.log(`Server is running on port ${port}`))

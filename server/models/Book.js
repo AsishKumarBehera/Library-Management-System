@@ -17,6 +17,7 @@ const bookSchema = new mongoose.Schema({
     type: String,
     required: true,  // Assuming the image URL is required
   },
+  isIssued: { type: Boolean, default: false },
 });
 
 const Book = mongoose.model('Book', bookSchema);

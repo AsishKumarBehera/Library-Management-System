@@ -1,0 +1,83 @@
+.membership-container {
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  max-width: 600px; /* Restrict max width for better layout */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Center the section on larger screens */
+.membership-section {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.membership-section h2 {
+  font-size: 22px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+/* Responsive input fields */
+.membership-input,
+.membership-select {
+  padding: 10px;
+  font-size: 16px;
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box; /* Ensures padding doesn't break width */
+}
+
+/* Ensure form is centered */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 125px;
+}
+
+/* Adjust button styling */
+.membership-section button {
+  width: 100%;
+  max-width: 200px; /* Prevents button from stretching too much */
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease-in-out;
+}
+
+.membership-section button:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .membership-container {
+    width: 90%; /* Makes it fit smaller screens */
+    padding: 15px;
+  }
+
+  .membership-section h2 {
+    font-size: 18px;
+  }
+
+  .membership-input,
+  .membership-select {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .membership-section button {
+    font-size: 14px;
+    padding: 10px;
+  }
+}

@@ -11,8 +11,10 @@ import MyBooks from "./pages/MyBooks";
 import { useState } from "react";
 import axios from "axios";  // Make sure axios is imported
 import RequestBook from "./pages/RequestBook";
+import IssueBook from "./pages/IssueBook";
+import Membership from "./pages/Membership";
 
-axios.defaults.baseURL = "http://localhost:3000";
+axios.defaults.baseURL = "http://localhost:2000";
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -36,10 +38,11 @@ function App() {
             <Route path="maintenance" element={<Maintenance />} />
             <Route path="reports" element={<Reports />} />
             <Route path="transactions" element={<Transactions />} />
-
+            <Route path="membership" element={<Membership />} />
             {/* Define the nested routes for books */}
             <Route path="view-books" element={<ViewBooks addToMyBooks={addToMyBooks} />} />
             <Route path="my-books" element={<MyBooks myBooks={myBooks} />} />
+            <Route path="issue-book" element={<IssueBook/>} />
             <Route path="request-book" element={<RequestBook />} />
           </Route>
         </Routes>

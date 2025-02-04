@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import AdminDashboard from './AdminDashboard';
 import UserDashboard from './UserDashboard';
-import MyProfile from './MyProfile';
+// import MyProfile from './MyProfile';
 import { toast } from 'react-hot-toast'; 
 import './Dashboard.css'; // Import the CSS file for styling
 
@@ -33,7 +33,7 @@ const Dashboard = () => {
       <div className="dashboard-sidebar">
         <h2>Menu</h2>
         <button onClick={() => setView('dashboard')}>Dashboard</button>
-        <button onClick={() => setView('profile')}>My Profile</button>
+        {/* <button onClick={() => setView('profile')}>My Profile</button> */}
         <button onClick={handleLogout}>Logout</button>
       </div>
 

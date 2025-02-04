@@ -62,6 +62,7 @@ const Authentication = () => {
       }
     } catch (error) {
       console.error(error);
+      toast.error('Registration failed. Please try again.');
     }
   };
 
