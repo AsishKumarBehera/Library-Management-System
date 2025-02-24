@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../pages/ViewBooks.css";
 
@@ -6,14 +7,18 @@ const ViewBooks = ({ addToMyBooks }) => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate(); // Hook to navigate
 
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await axios.get("/api/books"); // Adjust URL if needed
+        console.log("Fetching books...");
+        const response = await axios.get("http://localhost:2000/api/books");
+        console.log("Books received:", response.data);
         setBooks(response.data);
         setLoading(false);
       } catch (err) {
+        console.error("Error fetching books:", err.response || err.message);
         setError("Failed to fetch books");
         setLoading(false);
       }
@@ -23,7 +28,8 @@ const ViewBooks = ({ addToMyBooks }) => {
   }, []);
 
   const handleGetBook = (book) => {
-    addToMyBooks(book);  // Call the function passed via props to add to My Books
+    // addToMyBooks(book); // Add book to My Books
+    navigate("/issue-books", { state: { selectedBook: book } }); // Navigate to IssueBook page
   };
 
   if (loading) {

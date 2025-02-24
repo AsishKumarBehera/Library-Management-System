@@ -4,50 +4,47 @@ import { Toaster } from "react-hot-toast";
 import { UserContextProvide } from "../context/userContext";
 import Dashboard from "./pages/Dashboard";
 import Maintenance from "./pages/Maintenance";
-import Reports from "./pages/Reports";
-import Transactions from "./pages/Transactions";
 import ViewBooks from "./pages/ViewBooks";
 import MyBooks from "./pages/MyBooks";
-import { useState } from "react";
-import axios from "axios";  // Make sure axios is imported
 import RequestBook from "./pages/RequestBook";
-import IssueBook from "./pages/IssueBook";
 import Membership from "./pages/Membership";
+import IssueBook from "./pages/IssueBook";
+import ManageBooks from "./pages/AdminDashboard/ManageBooks";
+import Profile from "./pages/Profile"
+import ManageUsers from "./pages/AdminDashboard/ManageUsers";
+import Transactions from "./pages/AdminDashboard/Transactions"
+import GenerateReports from "./pages/AdminDashboard/GenerateReports";
+import axios from "axios";
 
 axios.defaults.baseURL = "http://localhost:2000";
 axios.defaults.withCredentials = true;
 
 function App() {
-  const [myBooks, setMyBooks] = useState([]); // Declare myBooks state
-
-  const addToMyBooks = (book) => {
-    setMyBooks((prevBooks) => [...prevBooks, book]); // Add book to the list
-  };
-
   return (
-    <>
-      <UserContextProvide>
-        <Toaster position="bottom-right" toastOptions={{ duration: 2000 }} />
-        <Routes>
-          {/* Define the root route for authentication */}
-          <Route path="/" element={<Authentication />} />
+    <UserContextProvide>
+      <Toaster position="bottom-right" toastOptions={{ duration: 2000 }} />
+      <Routes>
+        {/* Authentication Page */}
+        <Route path="/" element={<Authentication />} />
+        <Route path="/my-books" element={<MyBooks />} />
+        <Route path="view-books" element={<ViewBooks />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="membership" element={<Membership />} />
+        <Route path="issue-books" element={<IssueBook />} />
 
-          {/* Define the dashboard route with nested routes */}
-          <Route path="/dashboard" element={<Dashboard />}>
-            {/* Define the nested routes for different sections of the dashboard */}
-            <Route path="maintenance" element={<Maintenance />} />
-            <Route path="reports" element={<Reports />} />
-            <Route path="transactions" element={<Transactions />} />
-            <Route path="membership" element={<Membership />} />
-            {/* Define the nested routes for books */}
-            <Route path="view-books" element={<ViewBooks addToMyBooks={addToMyBooks} />} />
-            <Route path="my-books" element={<MyBooks myBooks={myBooks} />} />
-            <Route path="issue-book" element={<IssueBook/>} />
-            <Route path="request-book" element={<RequestBook />} />
-          </Route>
-        </Routes>
-      </UserContextProvide>
-    </>
+        {/* Dashboard (Parent Route) */}
+        <Route path="/dashboard" element={<Dashboard />}>
+          <Route path="manage-book" element={<ManageBooks />} /> 
+          <Route path="manage-user" element={
+            <ManageUsers />} />
+          <Route path="transactions" element={<Transactions />} />
+          <Route path="maintenance" element={<Maintenance />} />
+          <Route path="generate-report" element={<GenerateReports />} />
+          <Route path="transactions" element={<Transactions />} />
+          <Route path="request-book" element={<RequestBook />} />
+        </Route>
+      </Routes>
+    </UserContextProvide>
   );
 }
 

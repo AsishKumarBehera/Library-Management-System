@@ -17,7 +17,7 @@ const Membership = () => {
     membershipEndDate.setMonth(membershipEndDate.getMonth() + membershipDuration); // Adds months to the current date
 
     try {
-      const response = await axios.post("http://localhost:3000/api/membership/add", {
+      const response = await axios.post("api/membership/add", {
         membershipType, // Send the selected membership type
         userId, // Send user ID (replace with actual logged-in user ID)
         membershipEndDate, // Send the calculated membership end date
@@ -41,7 +41,7 @@ const Membership = () => {
     }
 
     try {
-      const response = await axios.put("http://localhost:3000/api/membership/update", {
+      const response = await axios.put("api/membership/update", {
         membershipId: membershipNumber, // Send the membership ID to be updated
         extensionType: membershipType, // Send the new extension duration
       });
@@ -57,7 +57,7 @@ const Membership = () => {
       {/* Add Membership Section */}
       <div className="membership-section">
         <h2>Add Membership</h2>
-        <form onSubmit={handleAddMembership}>
+        <form className="fomm" onSubmit={handleAddMembership}>
           <label>
             Membership Duration:
             <select
@@ -79,7 +79,7 @@ const Membership = () => {
       {/* Update Membership Section */}
       <div className="membership-section">
         <h2>Update Membership</h2>
-        <form onSubmit={handleUpdateMembership}>
+        <form className="fomm" onSubmit={handleUpdateMembership}>
           <label>
             Membership Number:
             <input

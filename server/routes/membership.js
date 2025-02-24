@@ -13,62 +13,56 @@ const calculateEndDate = (startDate, duration) => {
 
 // Add Membership
 router.post("/add", async (req, res) => {
-    try {
-      const { membershipType, userId, membershipEndDate } = req.body;
-  
-      // Ensure required fields are provided
-      if (!membershipType || !userId || !membershipEndDate) {
-        return res.status(400).json({ message: "All fields are required" });
-      }
-  
-      // Create new membership
-      const newMembership = new Membership({
-        membershipType,
-        userId,
-        membershipEndDate,
-      });
-  
-      // Save to database
-      await newMembership.save();
-      res.status(200).json({ message: "Membership added successfully", data: newMembership });
-    } catch (error) {
-      console.error("Error adding membership:", error);
-      res.status(500).json({ message: "Failed to add membership" });
-    }
-  });
-  
+  try {
+    const { membershipType, userId } = req.body;
 
-// Update Membership
-router.put("/update", async (req, res) => {
-    try {
-      const { membershipId, extensionType } = req.body;
-  
-      if (!membershipId || !extensionType) {
-        return res.status(400).json({ message: "Membership ID and extension type are required" });
-      }
-  
-      // Find the membership by ID
-      const membership = await Membership.findById(membershipId);
-      if (!membership) {
-        return res.status(404).json({ message: "Membership not found" });
-      }
-  
-      // Calculate new membership end date based on extension type
-      const extensionMonths = extensionType === "6 months" ? 6 : extensionType === "1 year" ? 12 : 24;
-      const newEndDate = new Date(membership.membershipEndDate);
-      newEndDate.setMonth(newEndDate.getMonth() + extensionMonths);
-  
-      // Update membership end date and type
-      membership.membershipEndDate = newEndDate;
-      membership.membershipType = extensionType;
-  
-      // Save the updated membership
-      await membership.save();
-      res.status(200).json({ message: "Membership updated successfully", data: membership });
-    } catch (error) {
-      console.error("Error updating membership:", error);
-      res.status(500).json({ message: "Failed to update membership" });
+    if (!membershipType || !userId) {
+      return res.status(400).json({ message: "Membership type and user ID are required" });
     }
-  });
+
+    // Calculate membership end date
+    const startDate = new Date();
+    const membershipEndDate = calculateEndDate(startDate, membershipType);
+
+    const newMembership = new Membership({
+      userId,
+      membershipType,
+      membershipStartDate: startDate,
+      membershipEndDate,
+    });
+
+    await newMembership.save();
+    res.status(200).json({ message: "Membership added successfully", data: newMembership });
+  } catch (error) {
+    console.error("Error adding membership:", error);
+    res.status(500).json({ message: "Failed to add membership" });
+  }
+});
+
+// Update Membership (Extend Duration)
+router.put("/update", async (req, res) => {
+  try {
+    const { membershipId, extensionType } = req.body;
+
+    if (!membershipId || !extensionType) {
+      return res.status(400).json({ message: "Membership ID and extension type are required" });
+    }
+
+    const membership = await Membership.findById(membershipId);
+    if (!membership) {
+      return res.status(404).json({ message: "Membership not found" });
+    }
+
+    // Extend the membership end date
+    const extensionMonths = extensionType === "6 months" ? 6 : extensionType === "1 year" ? 12 : 24;
+    membership.membershipEndDate.setMonth(membership.membershipEndDate.getMonth() + extensionMonths);
+
+    await membership.save();
+    res.status(200).json({ message: "Membership updated successfully", data: membership });
+  } catch (error) {
+    console.error("Error updating membership:", error);
+    res.status(500).json({ message: "Failed to update membership" });
+  }
+});
 
 module.exports = router;

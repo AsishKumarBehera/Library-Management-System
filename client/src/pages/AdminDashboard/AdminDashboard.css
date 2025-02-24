@@ -1,0 +1,171 @@
+/* Admin Dashboard */
+.admin-dashboard {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #f4f7fa;
+  padding: 20px;
+}
+
+.navbar {
+  background-color: #2c3e50;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.nav-links {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  padding: 0;
+  margin-top: 15px;
+}
+
+.nav-links li {
+  margin-right: 20px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: #3498db;
+}
+
+.main-content {
+  flex: 1;
+  margin-top: 20px;
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.progress-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.progress-item {
+  margin-bottom: 20px;
+}
+
+.progress-item label {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+}
+
+.progress-bar {
+  background-color: #f1f1f1;
+  border-radius: 10px;
+  height: 25px;
+  width: 100%;
+  position: relative;
+  margin-top: 5px;
+}
+
+.progress {
+  background-color: #3498db;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.progress-item span {
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 5px;
+  display: inline-block;
+  color: #333;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .navbar {
+    padding: 10px;
+  }
+
+  .navbar h2 {
+    font-size: 20px;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 10px;
+  }
+
+  .nav-links li {
+    margin-bottom: 10px;
+  }
+
+  .main-content {
+    padding: 15px;
+  }
+
+  h3 {
+    font-size: 20px;
+  }
+
+  .progress-item label {
+    font-size: 14px;
+  }
+
+  .progress-item span {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .navbar {
+    padding: 8px;
+  }
+
+  .navbar h2 {
+    font-size: 18px;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 5px;
+  }
+
+  .nav-links li {
+    margin-bottom: 8px;
+  }
+
+  .main-content {
+    padding: 10px;
+  }
+
+  h3 {
+    font-size: 18px;
+  }
+
+  .progress-item label {
+    font-size: 12px;
+  }
+
+  .progress-item span {
+    font-size: 10px;
+  }
+}

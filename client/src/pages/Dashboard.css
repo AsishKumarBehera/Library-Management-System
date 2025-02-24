@@ -1,82 +1,108 @@
+/* Dashboard Container */
 .dashboard-container {
   display: flex;
-  min-height: 100vh;
-  background-color: #f8f9fa; /* Light background */
-  font-family: Arial, sans-serif;
-}
-
-/* Sidebar */
-.dashboard-sidebar {
-  width: 250px;
-  background-color: #343a40; /* Dark gray */
-  color: white;
-  display: flex;
   flex-direction: column;
+  height: 100vh;
+  background: #f4f4f4;
+}
+
+/* Dashboard Navbar */
+.dashboard-navbar {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  padding: 20px 10px;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.dashboard-sidebar h2 {
-  margin-bottom: 20px;
-  font-size: 1.5rem;
-  color: #ffc107; /* Gold color */
-}
-
-.dashboard-sidebar button {
-  width: 100%;
-  margin: 10px 0;
-  padding: 10px 20px;
-  font-size: 1rem;
+  background: #2c3e50;
   color: white;
-  background-color: #495057; /* Lighter gray */
+  padding: 15px 20px;
+  position: relative;
+}
+
+/* Library Title */
+.library-title {
+  font-size: 22px;
+  color: rgb(113, 201, 201);
+  font-weight: bold;
+}
+
+/* Right Navigation (Laptop) */
+.nav-right {
+  display: flex;
+  gap: 15px;
+}
+
+/* Navigation Buttons */
+.nav-btn {
+  background: none;
   border: none;
-  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  padding: 10px;
+  text-align: left;
   cursor: pointer;
-  transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.dashboard-sidebar button:hover {
-  background-color: #ffc107; /* Gold hover effect */
-  color: #343a40; /* Dark text for hover */
+.nav-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
 }
 
-.dashboard-sidebar button:active {
-  background-color: #e0a800; /* Slightly darker gold */
+/* Logout Button */
+.logout-btn {
+  color: #e74c3c;
 }
 
-/* Main Content */
+/* Icon Styling */
+.icon {
+  margin-right: 5px;
+}
+
+/* Toggle Button (Hidden on Laptop) */
+.menu-toggle-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+/* Sidebar Menu (Mobile) */
+.sidebar-menu {
+  display: none; /* Initially hidden */
+  position: absolute;
+  top: 60px;
+  right: 10px;
+  width: 180px;
+  background: #34495e;
+  border-radius: 8px;
+  padding: 10px;
+  flex-direction: column;
+  transition: all 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+/* Show Sidebar when Menu is Open */
+.sidebar-menu.open {
+  display: flex;
+}
+
+/* Dashboard Main Content */
 .dashboard-main {
-  flex: 1; /* Take up remaining space */
-  padding: 20px;
+  flex: 1;
+  padding: 5px;
   overflow-y: auto;
 }
 
-.dashboard-main > div {
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-}
-
 /* Responsive Design */
-@media (max-width: 768px) {
-  .dashboard-container {
-    flex-direction: column;
+@media screen and (max-width: 768px) {
+  .nav-right {
+    display: none; /* Hide normal menu */
   }
 
-  .dashboard-sidebar {
-    width: 100%;
-    flex-direction: row;
-    justify-content: space-around;
-    padding: 10px;
-  }
-
-  .dashboard-sidebar h2 {
-    display: none; /* Hide the menu title on smaller screens */
-  }
-
-  .dashboard-main {
-    padding: 10px;
+  .menu-toggle-btn {
+    display: block; /* Show toggle button */
   }
 }

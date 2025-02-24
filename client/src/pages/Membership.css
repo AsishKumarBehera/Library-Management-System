@@ -34,7 +34,7 @@
 }
 
 /* Ensure form is centered */
-form {
+.fomm {
   display: flex;
   flex-direction: column;
   align-items: center;

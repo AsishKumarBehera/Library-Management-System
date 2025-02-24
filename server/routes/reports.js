@@ -1,54 +1,45 @@
-// routes/reports.js (backend)
 const express = require('express');
-const Report = require('../models/report');  // Assuming you have a Report model
+const fastcsv = require('fast-csv');
+const fs = require('fs');
+const PDFDocument = require('pdfkit');
+const { getIssuedBooks } = require('../models/IssueBook'); // Function to fetch data from DB
+
 const router = express.Router();
 
-// Get all reports
-router.get('/', async (req, res) => {
-  try {
-    const reports = await Report.find();
-    res.status(200).json(reports);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch reports' });
-  }
-});
-
-// Get a specific report by ID
-router.get('/:id', async (req, res) => {
-  try {
-    const report = await Report.findById(req.params.id);
-    if (!report) {
-      return res.status(404).json({ error: 'Report not found' });
-    }
-    res.status(200).json(report);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch the report' });
-  }
-});
-
-// Add a new report
-router.post('/', async (req, res) => {
-    try {
-      const { title, status } = req.body;
-      const newReport = new Report({ title, status });
+// Endpoint to generate report
+router.post('/api/reports', async (req, res) => {
+  const { startDate, endDate, category, reportType } = req.body;
   
-      await newReport.save(); // Save the new report to the database
-      res.status(201).json(newReport);  // Send back the newly added report
-    } catch (error) {
-      res.status(500).json({ error: 'Failed to add report' });
-    }
-  });
-
-// Delete a report
-router.delete('/:id', async (req, res) => {
   try {
-    const deletedReport = await Report.findByIdAndDelete(req.params.id);
-    if (!deletedReport) {
-      return res.status(404).json({ error: 'Report not found' });
+    // Query the database based on filters (adjust query based on your schema)
+    const books = await getIssuedBooks(startDate, endDate, category);
+    
+    if (reportType === "CSV") {
+      // Generate CSV
+      const csvStream = fastcsv.format({ headers: true });
+      res.setHeader('Content-Type', 'text/csv');
+      res.setHeader('Content-Disposition', 'attachment; filename=report.csv');
+      
+      csvStream.pipe(res);
+      books.forEach(book => csvStream.write(book));
+      csvStream.end();
+    } else if (reportType === "PDF") {
+      // Generate PDF
+      const doc = new PDFDocument();
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader('Content-Disposition', 'attachment; filename=report.pdf');
+      
+      doc.pipe(res);
+      doc.fontSize(12).text("Issued Books Report", { align: 'center' });
+      
+      books.forEach(book => {
+        doc.text(`Title: ${book.title}, Author: ${book.author}, Date: ${book.issueDate}`);
+      });
+      
+      doc.end();
     }
-    res.status(200).json({ message: 'Report deleted successfully' });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to delete report' });
+    res.status(500).send("Error generating report");
   }
 });
 

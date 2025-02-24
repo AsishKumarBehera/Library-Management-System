@@ -73,7 +73,7 @@ input {
 }
 
 button {
-  width: 95%;
+  /* width: 95%; */
   padding: 12px;
   background-color: #0d216c;
   color: white;

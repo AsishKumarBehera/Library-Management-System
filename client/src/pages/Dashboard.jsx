@@ -1,50 +1,72 @@
-import { useEffect, useState } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
-import AdminDashboard from './AdminDashboard';
-import UserDashboard from './UserDashboard';
-// import MyProfile from './MyProfile';
-import { toast } from 'react-hot-toast'; 
-import './Dashboard.css'; // Import the CSS file for styling
+import { useEffect, useState } from "react";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import "./Dashboard.css";
+import { FiHome, FiLogOut, FiUser, FiMenu, FiX } from "react-icons/fi";
+import AdminDashboard from "./AdminDashboard/AdminDashboard"; 
+import UserDashboard from "./UserDashboard";  
 
 const Dashboard = () => {
-  const [userRole, setUserRole] = useState('');
-  const [view, setView] = useState('dashboard'); // Manage current view
+  const [userRole, setUserRole] = useState("");
+  const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation(); // 👈 Get current route
 
   useEffect(() => {
-    const role = localStorage.getItem('userRole');
+    const role = localStorage.getItem("userRole");
     if (!role) {
-      navigate('/'); // Redirect to login if no role found
+      navigate("/"); // Redirect to login if no role found
     } else {
       setUserRole(role);
     }
   }, [navigate]);
 
-  // Handle Logout: Clears data and redirects to login page
   const handleLogout = () => {
-    localStorage.clear(); // Clear all stored user data
-    toast.success('Logged out successfully!'); // Optional: Add a success toast
-    navigate('/'); // Redirect to login
+    localStorage.clear();
+    toast.success("Logged out successfully!");
+    navigate("/");
   };
 
   return (
     <div className="dashboard-container">
-      {/* Sidebar */}
-      <div className="dashboard-sidebar">
-        <h2>Menu</h2>
-        <button onClick={() => setView('dashboard')}>Dashboard</button>
-        {/* <button onClick={() => setView('profile')}>My Profile</button> */}
-        <button onClick={handleLogout}>Logout</button>
+      {/* Navbar */}
+      <nav className="dashboard-navbar">
+        <h2 className="library-title">📚 LMS</h2>
+        <div className="nav-right">
+          <button className="nav-btn" onClick={() => navigate("/dashboard")}>
+            <FiHome className="icon" /> Home
+          </button>
+          <button className="nav-btn" onClick={() => navigate("/profile")}>
+            <FiUser className="icon" /> My Profile
+          </button>
+          <button className="nav-btn logout-btn" onClick={handleLogout}>
+            <FiLogOut className="icon" /> Logout
+          </button>
+        </div>
+        <button className="menu-toggle-btn" onClick={() => setMenuOpen(!menuOpen)}>
+          {menuOpen ? <FiX className="icon" /> : <FiMenu className="icon" />}
+        </button>
+      </nav>
+
+      {/* Sidebar Menu for Mobile */}
+      <div className={`sidebar-menu ${menuOpen ? "open" : ""}`}>
+        <button className="nav-btn" onClick={() => { navigate("/dashboard"); setMenuOpen(false); }}>
+          <FiHome className="icon" /> Home
+        </button>
+        <button className="nav-btn" onClick={() => { navigate("/profile"); setMenuOpen(false); }}>
+          <FiUser className="icon" /> My Profile
+        </button>
+        <button className="nav-btn logout-btn" onClick={handleLogout}>
+          <FiLogOut className="icon" /> Logout
+        </button>
       </div>
 
       {/* Main Content */}
       <div className="dashboard-main">
-        {view === 'dashboard' && (
-          <div>
-            {userRole === 'admin' ? <AdminDashboard /> : <UserDashboard />}
-          </div>
-        )}
-        {view === 'profile' && <MyProfile />}
+        {/* Show Admin/User Dashboard ONLY on "/dashboard", NOT on subroutes */}
+        {location.pathname === "/dashboard" && (userRole === "admin" ? <AdminDashboard /> : <UserDashboard />)}
+        
+        {/* Load nested components (like Manage Books) */}
         <Outlet />
       </div>
     </div>
